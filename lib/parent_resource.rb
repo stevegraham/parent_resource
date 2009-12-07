@@ -33,3 +33,5 @@ module ParentResource
     end
   end
 end
+
+ActionController::Base.send :include, ParentResource  
