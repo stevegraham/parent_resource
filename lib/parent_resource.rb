@@ -24,6 +24,9 @@ module ParentResource
         end
       end
     
+      def parent_resource
+        parent_object_name.singularize.classify.constantize
+      end
       
       # Controller helper method
       def parent_collection
