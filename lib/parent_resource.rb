@@ -16,15 +16,14 @@ module ParentResource
       def parent_object_name
         begin
           # Try to infer "parent" resource by walking back along the URL
-          pa = request.path.split('/')
-          path = pa[0, pa.index(params[:controller]) - 1].join('/')
-          ActionController::Routing::Routes.recognize_path(path, :method => :get)[:controller]
+          ActionController::Routing::Routes.recognize_path(path.gsub /\/#{params[:controller]}\/.+/, '', :method => :get)[:controller]
         rescue
           # Make best guess by looking for a key =~ /\w+_id/ if route recognition fails. This execution path
           # is unreliable with resources nested > one level deep.
           request.path_parameters.detect { |k,v| k.ends_with? "_id" }[0].gsub("_id", '').pluralize
         end
       end
+    
       
       # Controller helper method
       def parent_collection
