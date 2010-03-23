@@ -36,4 +36,4 @@ module ParentResource
   end
 end
 
-ActionController::Base.send :include, ParentResource  
+ActionController::Base.class_eval { include ParentResource } if const_defined? 'ActionController'  
