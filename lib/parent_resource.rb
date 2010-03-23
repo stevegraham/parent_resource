@@ -16,7 +16,7 @@ module ParentResource
       def parent_object_name
         begin
           # Try to infer "parent" resource by walking back along the URL
-          ActionController::Routing::Routes.recognize_path(path.gsub /\/#{params[:controller]}\/.+/, '', :method => :get)[:controller]
+          ActionController::Routing::Routes.recognize_path(path.gsub /\/#{params[:controller]}\/.+/, '', :method => request.method)[:controller]
         rescue
           # Make best guess by looking for a key =~ /\w+_id/ if route recognition fails. This execution path
           # is unreliable with resources nested > one level deep.
